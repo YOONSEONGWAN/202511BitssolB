@@ -9,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.SequenceGenerator;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -24,7 +25,9 @@ import lombok.Setter;
 public class Sound {
 
 	@Id // sound_id 을 PK 로 설정
-	@GeneratedValue(strategy = GenerationType.AUTO) // 시퀀스를 자동으로 만들어줌
+	//@GeneratedValue(strategy = GenerationType.AUTO) // 시퀀스를 자동으로 만들어줌
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sound_seq_gen") // 충돌이 나서 잠시 해놨습니다. -재원
+	@SequenceGenerator(name = "sound_seq_gen", sequenceName = "sound_seq", allocationSize = 1) // 충돌이 나서 잠시 해놨습니다. -재원
 	@Column(name = "sound_id")
 	private Integer soundId;
 	
