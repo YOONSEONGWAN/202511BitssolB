@@ -25,9 +25,9 @@ import lombok.Setter;
 public class PlayHistory {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "play_history_seq_gen") // 충돌이 나서 잠시 해놨습니다. -재원
-	@SequenceGenerator(name = "play_history_seq_gen", sequenceName = "play_history_seq", allocationSize = 1) // 충돌이 나서 잠시 해놨습니다. -재원
-	@Column(name = "history_id") // 충돌이 나서 잠시 해놨습니다. -재원
+	//@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "play_history_seq_gen") // 에러가 나서 잠시 해놨습니다. -재원
+	//@SequenceGenerator(name = "play_history_seq_gen", sequenceName = "play_history_seq", allocationSize = 1) // 에러가 나서 잠시 해놨습니다. -재원
+	//@Column(name = "history_id") // 에러가 나서 잠시 해놨습니다. -재원
 	private Integer historyId;
 	
 	@ManyToOne
