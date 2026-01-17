@@ -8,11 +8,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.PatchMapping;
 
+import com.example.sideproject01.dto.EmailChangeRequestDto;
+import com.example.sideproject01.dto.NicknameChangeRequestDto;
+import com.example.sideproject01.dto.PhoneChangeRequestDto;
 import com.example.sideproject01.dto.UserLoginRequestDto;
 import com.example.sideproject01.dto.UserResponseDto;
 import com.example.sideproject01.dto.UserSignupRequestDto;
+import com.example.sideproject01.repository.UserRepository;
 import com.example.sideproject01.service.UserService;
+
+
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +31,7 @@ import lombok.extern.slf4j.Slf4j;
 public class UserController {
 
 	private final UserService userService;
+	private final UserRepository userRepository; // ✅ 중복확인용
 
     // 회원가입
     @PostMapping("/signup")
@@ -48,4 +56,30 @@ public class UserController {
         
         return ResponseEntity.ok(myInfo);
     }
+    
+    
+    
+
+    @PatchMapping("/me/nickname")
+    public ResponseEntity<Void> changeMyNickname(Principal principal,
+            @RequestBody NicknameChangeRequestDto dto) {
+        userService.changeNickname(principal.getName(), dto.getNickname());
+        return ResponseEntity.noContent().build();
+    }
+
+    @PatchMapping("/me/email")
+    public ResponseEntity<Void> changeMyEmail(Principal principal,
+            @RequestBody EmailChangeRequestDto dto) {
+        userService.changeEmail(principal.getName(), dto.getEmail());
+        return ResponseEntity.noContent().build();
+    }
+
+    @PatchMapping("/me/phone")
+    public ResponseEntity<Void> changeMyPhone(Principal principal,
+            @RequestBody PhoneChangeRequestDto dto) {
+        userService.changePhone(principal.getName(), dto.getPhone());
+        return ResponseEntity.noContent().build();
+    }
+
+   
 }

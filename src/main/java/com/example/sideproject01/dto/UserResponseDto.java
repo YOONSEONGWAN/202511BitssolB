@@ -11,12 +11,19 @@ import lombok.Getter;
 @Builder // 빌더 패턴 사용
 public class UserResponseDto {
 
-    private String name;
+	 private String name; // userName
+	  private String nickname;
+	  private String email;
+	  private String phone;
+	  private String profileImageUrl;
 
-    // Entity -> DTO 변환 메소드 (스태틱 팩토리 메소드 패턴)
-    public static UserResponseDto from(User user) {
-        return UserResponseDto.builder()
-                .name(user.getUserName())
-                .build();
-    }
+	  public static UserResponseDto from(User user) {
+	    return UserResponseDto.builder()
+	        .name(user.getUserName())
+	        .nickname(user.getNickname())
+	        .email(user.getEmail())
+	        .phone(user.getPhone())
+	        .profileImageUrl(user.getProfileImageUrl())
+	        .build();
+	  }
 }

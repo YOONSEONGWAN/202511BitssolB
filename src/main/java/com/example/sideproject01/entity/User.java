@@ -43,6 +43,16 @@ public class User {
 	// User.java (추가)
 	@Column(name = "profile_image_url", length = 300)
 	private String profileImageUrl;
+	
+	// 추가 -재원
+	@Column(name = "nickname", length = 30, unique = true)
+	private String nickname;
+
+	@Column(name = "email", length = 100, unique = true)
+	private String email;
+
+	@Column(name = "phone", length = 20, unique = true)
+	private String phone;
 
 	// 추가적으로 email, role 등 필요한 필드를 여기에 추가할 수 있습니다.
 	// 예: private String email;

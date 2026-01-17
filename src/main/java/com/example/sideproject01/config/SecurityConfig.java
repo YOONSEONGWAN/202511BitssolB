@@ -29,7 +29,7 @@ public class SecurityConfig {
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
 		httpSecurity
-				// 1. 보안 설정 초기화 (CSRF 끄기, REST API이므로 세션 안 씀(STATELESS) 설정)
+				// 1. 보안 설정 초기화
 				.csrf(AbstractHttpConfigurer::disable).cors(cors -> cors.configurationSource(corsConfigurationSource())) // CORS
 																															// 설정
 																															// 추가
@@ -40,7 +40,7 @@ public class SecurityConfig {
 						// 브라우저의 OPTIONS 요청(Preflight)은 무조건 허용
 						.requestMatchers(org.springframework.http.HttpMethod.OPTIONS, "/**").permitAll()
 						// 1. 회원가입, 로그인, 정적 파일(오디오, 이미지)은 누구나 접근 가능 (permitAll)
-						.requestMatchers("/v1/users/signup", "/v1/users/login", "/upload/**", "/v1/sounds/stream/**")
+						.requestMatchers("/v1/users/signup", "/v1/users/login", "/upload/**", "/v1/sounds/stream/**","/v1/users/check/**")
 						.permitAll()
 						// 2. Swagger 문서 관련 URL도 열어두기
 						.requestMatchers("/v3/api-docs/**", "/swagger-ui/**").permitAll()

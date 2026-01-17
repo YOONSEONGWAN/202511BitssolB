@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.sideproject01.dto.PasswordChangeRequestDto;
 import com.example.sideproject01.service.UserPasswordService;
 
+
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -18,7 +19,7 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/v1/users/me")
 public class UserPasswordController {
 
-    private final UserPasswordService userPasswordService;
+	private final UserPasswordService userPasswordService;
 
     /**
      * ✅ PATCH /v1/users/me/password

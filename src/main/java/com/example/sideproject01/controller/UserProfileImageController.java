@@ -13,10 +13,10 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/users/me")
+@RequestMapping("/v1/users/me")
 public class UserProfileImageController {
 
-    private final UserProfileImageService userProfileImageService; // ✅ 인터페이스로 주입
+    private final UserProfileImageService userProfileImageService;
 
     @GetMapping("/profile-image")
     public ResponseEntity<ProfileImageResponseDto> getMyProfileImage(Principal principal) {
@@ -30,10 +30,10 @@ public class UserProfileImageController {
     ) {
         return ResponseEntity.ok(userProfileImageService.updateMyProfileImage(principal.getName(), file));
     }
-    
+
     @DeleteMapping("/profile-image")
     public ResponseEntity<ProfileImageResponseDto> resetMyProfileImage(Principal principal) {
         return ResponseEntity.ok(userProfileImageService.resetMyProfileImage(principal.getName()));
     }
-
 }
+
