@@ -24,12 +24,13 @@ public class UserProfileServiceImpl implements UserProfileService {
         if (dto == null) throw new IllegalArgumentException("요청 값이 비어있습니다.");
 
         User user = userRepository.findByUserName(userName)
-            .orElseThrow(() -> new IllegalArgumentException("유저를 찾을 수 없습니다."));
+                .orElseThrow(() -> new IllegalArgumentException("유저를 찾을 수 없습니다."));
 
         // nickname
         if (hasText(dto.getNickname())) {
             String newNick = dto.getNickname().trim();
-            if (!newNick.equals(user.getNickname()) && userRepository.existsByNickname(newNick)) {
+            if (!newNick.equals(user.getNickname())
+                    && userRepository.countByNickname(newNick) > 0) {
                 throw new IllegalArgumentException("이미 사용 중인 닉네임입니다.");
             }
             user.setNickname(newNick);
@@ -38,7 +39,8 @@ public class UserProfileServiceImpl implements UserProfileService {
         // email
         if (hasText(dto.getEmail())) {
             String newEmail = dto.getEmail().trim().toLowerCase();
-            if (!newEmail.equals(user.getEmail()) && userRepository.existsByEmail(newEmail)) {
+            if (!newEmail.equals(user.getEmail())
+                    && userRepository.countByEmail(newEmail) > 0) {
                 throw new IllegalArgumentException("이미 사용 중인 이메일입니다.");
             }
             user.setEmail(newEmail);
@@ -47,13 +49,13 @@ public class UserProfileServiceImpl implements UserProfileService {
         // phone
         if (hasText(dto.getPhone())) {
             String newPhone = normalizePhone(dto.getPhone());
-            if (!newPhone.equals(user.getPhone()) && userRepository.existsByPhone(newPhone)) {
+            if (!newPhone.equals(user.getPhone())
+                    && userRepository.countByPhone(newPhone) > 0) {
                 throw new IllegalArgumentException("이미 사용 중인 전화번호입니다.");
             }
             user.setPhone(newPhone);
         }
 
-        // dirty checking 반영 + 응답
         return UserResponseDto.from(user);
     }
 
