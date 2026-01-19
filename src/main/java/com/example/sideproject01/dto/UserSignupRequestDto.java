@@ -1,9 +1,6 @@
 package com.example.sideproject01.dto;
 
 
-import com.example.sideproject01.entity.User;
-import com.example.sideproject01.entity.UserRole;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -12,15 +9,13 @@ import lombok.NoArgsConstructor;
 public class UserSignupRequestDto {
 
     private String password;
-    private String name;
+    private String name;  // 기존: userName
     private String role; // "USER" 또는 "ADMIN" (String으로 받아서 변환할 예정)
     
-    // DTO -> Entity 변환 메소드
-    public User toEntity(String encodedPassword) {
-        return User.builder()
-                .password(encodedPassword) // 암호화된 비밀번호를 넣어야 함
-                .userName(this.name)
-                .role(UserRole.valueOf(this.role)) // String "USER" -> Enum USER 변환
-                .build();
-    }
+    // ✅ 추가
+    private String nickname;
+    private String email;
+    private String phone;
+    
+    
 }
